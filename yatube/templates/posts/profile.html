@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+  Профайл пользователя {{ users.get_full_name }}
+{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1>Все посты пользователя {{ users.get_full_name }} </h1>
+  <h3>Всего постов: {{ users.posts.count }} </h3>
+  <div class="mb-5">
+    {% if following %}
+      <a
+        class="btn btn-lg btn-primary"
+        href="{% url 'posts:profile_unfollow' users.username %}" role="button"
+      >
+        Отписаться
+      </a>
+    {% else %}
+      <a
+        class="btn btn-lg btn-primary"
+        href="{% url 'posts:profile_follow' users.username %}" role="button"
+      >
+        Подписаться
+      </a>
+    {% endif %}
+    {% if request.user == users %}
+      <a
+      class="btn btn-lg btn-danger" 
+      onclick="return confirm('Вы действительно хотите удалить свою учетную запись?')" 
+      href="{% url 'posts:user_delete' users.username %}"
+      >
+        Удалить пользователя
+      </a>
+    {% endif %}
+  </div>
+  {% for post in page_obj %}
+    <ul>
+      <li>
+        Дата публикации: {{ post.pub_date|date:"d E Y" }}
+      </li>
+    </ul>
+    {% include 'posts/includes/post_card.html' %}   
+  {% if post.group %}   
+    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+  {% endif %}
+  {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
+</div>
+{% endblock %}

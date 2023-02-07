@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+<h1>Привет, я автор</h1>
+<p>
+  <s>Тут я размещу информацию о себе, используя свои умения верстать.</s>
+  <b>Нет</b>
+</p>
+<div class="row">
+  <left class="col-12 col-md-12 col-xl-4">
+    <img src="{% static 'img/1564314059_1.jpg' %}" width="560" height="400">
+  </left>
+  <middle class="col-12 col-md-12 col-xl-4">
+    <img src="{% static 'img/feya-luny-kot.jpg' %}" width="560" height="400">
+  </middle>
+  <right class="col-12 col-md-12 col-xl-4">
+    <img src="{% static 'img/bolishoe-spasibo-ot-kotika.gif' %}" width="560" height="400">
+  </right>
+</div>
+{% endblock %}

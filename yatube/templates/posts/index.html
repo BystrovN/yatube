@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load cache %}
+{% block title %}
+  Это главная страница
+{% endblock %}
+{% block content %}
+{% include 'posts/includes/switcher.html' %}
+<div class="container py-5">
+{% cache 20 index_page page_obj request.user.username %}
+{% for post in page_obj %}
+  <ul>
+    <li>
+      Автор: {{ post.author.get_full_name }} {{ post.group.help_text }}
+      <a href="{% url 'posts:profile' post.author.username %}">все посты пользователя</a>
+    </li>
+    <li>
+      Дата публикации: {{ post.pub_date|date:"d E Y" }}
+    </li>
+  </ul>
+  {% include 'posts/includes/post_card.html' %}
+  {% if post.group %} 
+    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+  {% endif %}   
+  {% if not forloop.last %}<hr>{% endif %}
+{% endfor %}
+{% include 'posts/includes/paginator.html' %}
+{% endcache %} 
+</div>
+{% endblock %}
