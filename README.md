@@ -1,3 +1,4 @@
+
 # Welcome!
 
 Проект **Yatube** - социальная сеть.
@@ -16,6 +17,8 @@
 1. После клонирования проекта рекомендуется использовать виртуальное окружение для дальнейшего развертывания.
 ```
 	python3.7 -m venv venv
+```
+```
 	source venv/bin/activate
 ```
 
@@ -24,13 +27,14 @@
 	pip install -r requirements.txt
 ```
 
-3. Создадим суперпользователя и выполним миграции :
+
+3. Выполним миграции, создадим суперпользователя и запустим проект:
 ```
-	python manage.py createsuperuser
 	python manage.py migrate
 ```
-
-4. Запустим сервер Django:
+```
+	python manage.py createsuperuser
+```
 ```
 	python manage.py runserver
 ```
